@@ -1,0 +1,40 @@
+class Solution {
+  public:
+    /*Structure of the node of the linled list is as
+
+    struct Node {
+        int data;
+        struct Node* next;
+
+        Node(int x){
+            data = x;
+            next = NULL;
+        }
+    };
+    */
+    // your task is to complete this function
+    // function should return sum of last n nodes
+    int sumOfLastN_Nodes(struct Node* head, int n) {
+        // Code here
+        Node*fast=head;
+        int sum=0;
+        Node*slow=head;
+        int i=1;
+        while(fast&&fast->next!=nullptr&&i<n){
+            fast=fast->next;
+            i++;
+            
+        }
+        while(fast&&fast->next!=nullptr){
+            slow=slow->next;
+            fast=fast->next;
+        }
+        while(slow){
+            // cout<<slow->data<<" ";
+            sum+=slow->data;
+            slow=slow->next;
+        }
+        // cout<<endl;
+        return sum;
+    }
+};
