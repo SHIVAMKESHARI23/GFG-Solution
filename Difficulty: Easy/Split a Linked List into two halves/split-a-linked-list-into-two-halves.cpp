@@ -18,69 +18,21 @@ struct Node
 class Solution {
   public:
     pair<Node *, Node *> splitList(struct Node *head) {
-    if (head == nullptr)
-        return {nullptr, nullptr};
-
-    int count = 1;
-    Node* temp = head->next;
-    vector<int> arr;
-    vector<int> nums;
-
-    // count nodes (circular list)
-    while (temp != head) {
-        count++;
-        temp = temp->next;
-    }
-
-    // reset temp
-    temp = head;
-
-    int firstSize = (count + 1) / 2;  // first list gets extra node
-
-    // split based on count
-    for (int i = 0; i < count; i++) {
-        if (i < firstSize) {
-            nums.push_back(temp->data);
-        } else {
-            arr.push_back(temp->data);
+        // code here
+        Node*slow=head;
+        Node*fast=head->next;
+        while(fast!=head&&fast->next!=head){
+            slow=slow->next;
+            fast=fast->next->next;
         }
-        temp = temp->next;
-    }
-
-    Node* newhead = nullptr;
-    Node* newhead2 = nullptr;
-    Node* tail = nullptr;
-    Node* tail2 = nullptr;
-
-    // build first list
-    for (int i = 0; i < nums.size(); i++) {
-        Node* newnode = new Node(nums[i]);
-        if (newhead == nullptr) {
-            newhead = newnode;
-            tail = newnode;
-        } else {
-            tail->next = newnode;
-            tail = newnode;
+        Node*head1_ref=head;
+        Node*head2_ref=slow->next;
+        slow->next=head1_ref;
+        Node*curr=head2_ref;
+        while(curr->next!=head){
+            curr=curr->next;
         }
-    }
-
-    // build second list
-    for (int i = 0; i < arr.size(); i++) {
-        Node* newnode2 = new Node(arr[i]);
-        if (newhead2 == nullptr) {
-            newhead2 = newnode2;
-            tail2 = newnode2;
-        } else {
-            tail2->next = newnode2;
-            tail2 = newnode2;
+        curr->next=head2_ref;
+        return{head1_ref,head2_ref};
         }
-    }
-
-    // make both lists circular
-    if (tail) tail->next = newhead;
-    if (tail2) tail2->next = newhead2;
-
-    return {newhead, newhead2};
-}
-
 };
