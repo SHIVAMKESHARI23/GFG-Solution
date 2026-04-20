@@ -1,0 +1,37 @@
+class Solution {
+  public:
+    bool isBalanced(string& s) {
+        // code here
+        stack<char>st;
+    
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='('||s[i]=='['||s[i]=='{'){
+                st.push(s[i]);
+                // cout<<st.top();
+            }
+            else{
+                if(!st.empty()){
+                    if(s[i]==')'&& st.top()=='('){
+                        st.pop();
+                    }
+                    else if(s[i]=='}'&&st.top()=='{'){
+                        st.pop();
+                    }
+                    else if(s[i]==']'&&st.top()=='['){
+                        st.pop();
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                    
+                    
+                else{
+                    return false;
+                }
+            }
+        }
+        if(!st.empty()) return false;
+        return true;
+    }
+};
